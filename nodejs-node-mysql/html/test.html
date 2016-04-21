@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script src="../js/jquery-1.9.1.js"></script>
+    <script>
+        $(function () {
+            $('#test').click(function () {
+                var id = 3;
+                $.ajax({
+                    type: 'POST',
+                    url: '../output_file.js',
+                    data: id,
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function () {
+                        alert('connect error');
+                    } 
+                });
+            })
+        })
+    </script>
+</head>
+<body>
+    <input id="test" type="button" value="生成json">
+</body>
+</html>
