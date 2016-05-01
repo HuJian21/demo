@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  - var name = 'Jian'
+  - users = ['莎士比亚','托尔斯泰','陀思妥耶夫斯基','雨果'];
+  h1= title
+  p Welcome to #{title}
+  h2 h2 label
+  section#test
+    p.highlight This is a test jade from #{title}
+    h1 Hello #{name}
+    ul
+      - for user in users
+        li= user
+    ul
+      li 你好
+      li 我不好
+    p
+      |这是管道符，
+      |这个是
+      |你好。
+    - var awake = false
+    - if (awake) 
+      p you are awake! Make coffee!
+    - else 
+      p you are sleeping
+    - var obj = {first_name: 'George', surname: 'Ornbo'}
+    - each val, key in obj
+      li #{key}: #{val}
+  // script.
+  //   alert('on the jade')
+  include includes/footer
+      
