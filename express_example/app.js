@@ -22,8 +22,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+// app.use('/', routes);
+// app.use('/users', users);
+app.get('/', routes.index);
+app.get('/users', users);
+app.get('/pcat', routes.pcat);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -56,8 +60,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(3002, function () {
-  console.log('app running at port 3002');
+app.listen(3000, function () {
+  console.log('app running at port 3000');
 })
 
 
