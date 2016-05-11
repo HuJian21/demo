@@ -2,3 +2,8 @@ extends layout
 
 block content
   h1 i am #{name}
+  - var users2 = ['1', '2', '3', '4']
+  - for user in users2
+    li #{users}
+    ul
+      li= user
