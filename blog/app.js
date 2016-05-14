@@ -30,30 +30,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cookieParser());
-app.use(session({
-  secret: setting.cookieSecret,
-  key: setting.db,//cookie name
-  cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
-  store: new MongoStore({
-    url: 'mongodb://localhost/blog'
-    // url: 'mongodb://localhost/blog',
-    // db: setting.db,
-    // host: setting.host,
-    // port: setting.port
-  })
-}));
 // app.use(session({
 //   secret: setting.cookieSecret,
-//   resave: false,
-//   saveUninitialized: true,
-//   cookie: { secure: true },
-//     store: new MongoStore({
+//   key: setting.db,//cookie name
+//   cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
+//   store: new MongoStore({
 //     url: 'mongodb://localhost/blog',
 //     db: setting.db,
 //     host: setting.host,
 //     port: setting.port
 //   })
-// }))
+// }));
 
 // app.use('/', routes);
 // app.use('/users', users);

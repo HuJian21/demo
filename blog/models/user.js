@@ -7,7 +7,7 @@ function User(user) {
 
 // 查找用户名
 User.find = function (username, callback) {
-    mongoDb.open(function (err) {
+    mongoDb.open(function (err, db) {
         if (err) {
             return callback(err);
         }
@@ -45,7 +45,7 @@ User.prototype.save = function (callback) {
         if (err) {
             return callback(err);
         }
-        dv.collection('users', function (err, collection) {
+        db.collection('users', function (err, collection) {
             if (err) {
                 mongoDb.close();
                 return callback(err);

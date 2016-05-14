@@ -3,7 +3,7 @@ var router = express.Router();
 var crypto = require('crypto');
 var setting = require('../setting');
 
-var User = require('../models/user.js');
+var User = require('../models/user');
 
 /* GET home page. */
 exports.index = function (req, res) {
@@ -25,8 +25,8 @@ exports.reg = function (req, res) {
 exports.doReg = function (req, res) {
     if (req.body['password-repeat'] != req.body['password']) {
         // console.log('11');
-        // req.session.error = '密码输入不一致，请检查后重试！';
-        return res.redirect('/login');
+        res.render('reg', {message: '密码输入不一致，请检查后重试！'});
+        return res.redirect('/reg');
     }
     
     // 对密码进行加密
@@ -40,7 +40,7 @@ exports.doReg = function (req, res) {
     
     User.find(newUser.name, function (err, user) {
         if (user) {
-            // req.session.error = '该用户已存在';
+            res.render('reg', {message: '该用户已存在'});
             return res.redirect('/reg');
         }
         else {
@@ -49,10 +49,10 @@ exports.doReg = function (req, res) {
                     // req.session.err = err;
                     return res.redirect('/reg');
                 }
-                req.session.user = newUser;
-                // req.session.success = '注册成功';
-                // res.locals.user = newUser;
+                // req.session.user = newUser;
+                res.render('reg', {message: '注册成功！'});
                 res.redirect('/');
+                // console.log('注册成功');
             })
         }
     })
