@@ -1,0 +1,28 @@
+extends layout
+
+block content    
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css')   
+    link(rel='stylesheet', href='/stylesheets/login.css')
+    section.col-md-4.loginSection
+      .panel.panel-default
+        .panel-heading &#x7528;&#x6237;&#x767B;&#x5F55;
+        |             
+        .panel-body
+          .control-group
+            label.control-label(for='username') &#x7528;&#x6237;&#x540D;
+            |                     
+            .controls
+              input#username.form-control(type='text', name='username')
+              |                         
+              p.help-block &#x4F60;&#x7684;&#x8D26;&#x6237;&#x540D;&#x79F0;&#xFF0C;&#x7528;&#x6237;&#x767B;&#x5F55;&#x548C;&#x63D0;&#x793A;
+          |                 
+          .control-group
+            label.control-label(for='password') &#x5BC6;&#x7801;
+            |                     
+            .controls
+              input#password.form-control(type='text', name='password')
+          |                 
+          br
+          |                 
+          .form-actions
+            button.btn.btn-primary(type='submit') &#x767B;&#x5F55;
