@@ -4,7 +4,8 @@
   "description": "",
   "main": "connect.js",
   "dependencies": {
-    "socket.io": "^1.4.6"
+    "socket.io": "^1.4.6",
+    "express": "~4.13.4"
   },
   "devDependencies": {},
   "scripts": {

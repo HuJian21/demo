@@ -2,12 +2,22 @@ extends layout
 
 block content
   link(rel='stylesheet', href='/stylesheets/index.css')
+  - if (success)
+    p.bg-success.sys-message #{success}
+  - else 
+    p.bg-danger.sys-message #{error}
   div.jumbotron.welcome
     h1 欢迎来到我的Node.js博客
     p 这是一个基于Node.js的博客系统。
-    p.buttons
-      a.btn.btn-default(href="/login" role="button") 登录
-      a.btn.btn-default(href="/reg" role="button") 立即注册
+    - if (user)
+      p.buttons
+        span.welcome-message 欢迎您，#{user}
+        a.btn.btn-default(href="/post" role="button") 发表
+        a.btn.btn-default(href="/logout" role="button") 登出
+    - else
+      p.buttons
+        a.btn.btn-default(href="/login" role="button") 登录
+        a.btn.btn-default(href="/reg" role="button") 立即注册
   .says
     .say 
       h2 雨果：

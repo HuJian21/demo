@@ -3,6 +3,10 @@ extends layout
 block content    
     link(rel='stylesheet', href='/stylesheets/bootstrap.css')   
     link(rel='stylesheet', href='/stylesheets/login.css')
+    - if (success)
+      p.bg-success #{success}
+    - else 
+      p.bg-danger #{error}
     section.col-md-4.loginSection
       .panel.panel-default
         .panel-heading 用户注册              
@@ -19,4 +23,3 @@ block content
               label(for='password-repeat') 确认密码                        
               input#password.form-control(type='password', name='password-repeat')                             
             button.btn.btn-primary(type='submit') 注册
-    p #{message}

@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+// var express = require('express');
+// var router = express.Router();
 var crypto = require('crypto');
 var setting = require('../setting');
 
@@ -7,7 +7,12 @@ var User = require('../models/user');
 
 /* GET home page. */
 exports.index = function (req, res) {
-    res.render('index', {title: 'my blog'});
+    res.render('index', {
+        title: 'my blog',
+        user: req.session.user,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+    });
 }
 
 exports.user = function (req, res) {
@@ -19,13 +24,18 @@ exports.post = function (req, res) {
 }
 
 exports.reg = function (req, res) {
-    res.render('reg', {title: '注册页面'});
+    res.render('reg', {
+        title: '注册页面',
+        user: req.session.user,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+    });
 }
 
 exports.doReg = function (req, res) {
     if (req.body['password-repeat'] != req.body['password']) {
         // console.log('11');
-        res.render('reg', {message: '密码输入不一致，请检查后重试！'});
+        req.flash('error', '两次输入的密码不一致!'); 
         return res.redirect('/reg');
     }
     
@@ -40,35 +50,73 @@ exports.doReg = function (req, res) {
     
     User.find(newUser.name, function (err, user) {
         if (user) {
-            res.render('reg', {message: '该用户已存在'});
+            req.flash('error', '用户已存在!');
             return res.redirect('/reg');
         }
         else {
             newUser.save(function (err) {
                 if (err) {
-                    // req.session.err = err;
+                    req.session.err = err;
+                    req.flash('error', err);
                     return res.redirect('/reg');
                 }
-                // req.session.user = newUser;
-                res.render('reg', {message: '注册成功！'});
+                req.session.user = newUser;
+                req.flash('success', '注册成功');
                 res.redirect('/');
                 // console.log('注册成功');
             })
         }
     })
-    // res.render('doReg', {title: 'my blog'});
 }
 
 exports.login = function (req, res) {
-    res.render('login', {title: '登录页面'});
+    res.render('login', {
+        title: '登录页面',
+        user: req.session.user,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+    });
 }
 
 exports.doLogin = function (req, res) {
-    res.render('doLogin', {title: 'my blog'});
+    var md5 = crypto.createHash('md5');
+    var password = md5.update(req.body.password).digest('base64');
+    
+    User.find(req.body.username, function (err, user) {
+        if (!user) {
+            req.flash('error', '用户不存在!');
+            return res.redirect('/login');
+        }
+        if (user.password != password) {
+            req.flash('error', '密码输入错误!');
+            return res.redirect('/login');
+        }
+        req.session.user = user;
+        req.flash('success', '登录成功');
+        res.redirect('/');
+    })
 }
 
 exports.logout = function (req, res) {
-    res.logout('index', {title: 'my blog'});
+    req.session.user = null;
+    req.flash('success', '登出成功');
+    res.redirect('/');
+}
+
+exports.checkLogin = function (req, res, next) {
+    if (!req.session.user) {
+        req.flash('error', '未登录');
+        res.redirect('/login');
+    }
+    next();
+}
+
+exports.checkNotLogin = function (req, res, next) {
+    if (req.session.user) {
+        req.flash('error', '已登录');
+        res.redirect('back');
+    }
+    next();
 }
 
 

@@ -1,15 +1,23 @@
 @import '_reset.scss';
+$marginLeft: 40px;
+$marginTop: 20px;
+.welcome-message {
+	font-size: 16px;
+}
+.sys-message {
+	margin: $marginTop $marginLeft;
+}
 .welcome {
-	margin: 20px 40px;
+	margin: $marginTop $marginLeft;
 	border-radius: 10px;
 	h1, p {
-		margin-left: 40px;
+		margin-left: $marginLeft;
 	}
 	h1 {
 		font-weight: bold;
 	}
 	.buttons {
-		margin-left: 40px;
+		margin-left: $marginLeft;
 		a {
 			margin-right: 8px;
 		}
