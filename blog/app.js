@@ -4,7 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-// var flash = require('express-flash');
 
 var routes = require('./routes/index');
 var setting = require('./setting');
@@ -29,10 +28,11 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// cookie-parser
 app.use(cookieParser());
+// express-sessin
 app.use(session({
   secret: setting.cookieSecret,
   key: setting.db,//cookie name
@@ -42,8 +42,10 @@ app.use(session({
   })
 }));
 
+// 消息通知
 app.use(flash());
 
+// 文件上传
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/images');
