@@ -5,9 +5,9 @@ block content
       .panel.panel-default
         .panel-heading 用户注册              
         .panel-body
-          form(method='post')
+          form(method='post', action='/upload', enctype='multipart/form-data')
             .form-group
               label(for='username') 上传文件                        
-              input#username.form-control(type='file', name='file')                                          
+              input.form-control(type='file', multiple name='field1')                                          
             button.btn.btn-primary(type='submit') 上传
     

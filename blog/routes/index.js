@@ -2,7 +2,6 @@
 // var router = express.Router();
 var crypto = require('crypto');
 var setting = require('../setting');
-var multer = require('multer');
 
 var User = require('../models/user');
 var Post = require('../models/post');
@@ -152,8 +151,16 @@ exports.checkNotLogin = function (req, res, next) {
 
 exports.upload = function (req, res) {
     res.render('upload', {
-        title: '上传文件'
+        title: '上传文件',
+        user: req.session.user,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
     });
+}
+
+exports.doUpload = function (req, res) {
+    req.flash('success', '文件上传成功');
+    return res.redirect('/upload');
 }
 
 

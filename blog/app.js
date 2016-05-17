@@ -14,6 +14,8 @@ var session = require('express-session');
 var connect = require('connect');
 var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
+var multer = require('multer');
+
 
 var app = express();
 
@@ -42,6 +44,18 @@ app.use(session({
 
 app.use(flash());
 
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/images');
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+var upload = multer({
+    storage: storage
+});
+
 // app.use('/', routes);
 // app.use('/users', users);
 
@@ -69,7 +83,7 @@ app.get('/post', routes.post);
 app.post('/post', routes.checkLogin);
 app.post('/post', routes.doPost);
 // 文章列表页
-app.get('/article', routes.checkLogin);
+// app.get('/article', routes.checkLogin);
 app.get('/article', routes.article);
 // 执行文章发布
 app.post('/article', routes.checkLogin);
@@ -78,8 +92,11 @@ app.post('/article', routes.doPost);
 app.get('/logout', routes.checkLogin);
 app.get('/logout', routes.logout);
 // 上传文件页面
-app.get('/upload', routes.checkLogin);
+// app.get('/upload', routes.checkLogin);
 app.get('/upload', routes.upload);
+// 执行文件上传
+app.post('/upload', routes.checkLogin);
+app.post('/upload', upload.array('field1', 5), routes.doUpload);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
