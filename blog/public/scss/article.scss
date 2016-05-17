@@ -1,0 +1,23 @@
+@import '_reset.scss';
+.content{
+    .head-text {
+        margin-bottom: 20px;
+    }
+    .article {
+        margin-bottom: 20px;
+        border-radius: 10px;
+        padding: 20px;
+        h3 {
+            margin-bottom: 20px;
+        }
+        .author-time {
+            // color: #808080;
+        }
+        .article-author {
+            margin-right: 20px;
+        }
+        .author-time {
+            margin-bottom: 20px;
+        }
+    }
+}

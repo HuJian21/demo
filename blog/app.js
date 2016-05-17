@@ -50,23 +50,36 @@ app.get('/', routes.index);
 // app.get('/', )
 app.get('/u/:user', routes.user);
 
+// 注册页面
 app.get('/reg', routes.checkNotLogin);
 app.get('/reg', routes.reg);
-
+// 执行注册
 app.post('/reg', routes.checkNotLogin);
 app.post('/reg', routes.doReg);
-
+// 登录页面
 app.get('/login', routes.checkNotLogin);
 app.get('/login', routes.login);
-
+// 执行登录
 app.post('/login', routes.checkNotLogin);
 app.post('/login', routes.doLogin);
-
+// 文章发布页
+app.get('/post', routes.checkLogin);
+app.get('/post', routes.post);
+// 执行文章发布
 app.post('/post', routes.checkLogin);
-app.post('/post', routes.post);
-
+app.post('/post', routes.doPost);
+// 文章列表页
+app.get('/article', routes.checkLogin);
+app.get('/article', routes.article);
+// 执行文章发布
+app.post('/article', routes.checkLogin);
+app.post('/article', routes.doPost);
+// 登出
 app.get('/logout', routes.checkLogin);
 app.get('/logout', routes.logout);
+// 上传文件页面
+app.get('/upload', routes.checkLogin);
+app.get('/upload', routes.upload);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

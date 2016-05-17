@@ -1,8 +1,13 @@
+@import '_reset.scss';
 .clear {
     clear: both;
 }
+.sys-message {
+	margin: 20px 40px;
+}
 .footer {
-    margin-left: 40px;
+    text-align: center;
+    margin-top: 20px;
     a {
         margin-right: 20px;
     }

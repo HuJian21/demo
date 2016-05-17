@@ -1,0 +1,18 @@
+extends layout
+block content
+  link(rel='stylesheet', href='/stylesheets/article.css')
+  .content.col-md-10.col-md-offset-1
+    h3.head-text 所有文章
+    form(method="post")
+      textarea(rows="5", name="post").form-control
+      input.pull-right(type="submit", value="发布")
+    - for post in posts
+      .articles.clear
+        .article.bg-info
+          - if (post.title)
+            h3= post.title
+          p.author-time
+            span.article-author 作者：#{post.name}
+            span.article-time 日期: #{post.time.minute}
+          != post.post
+ 

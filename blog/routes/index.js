@@ -2,8 +2,10 @@
 // var router = express.Router();
 var crypto = require('crypto');
 var setting = require('../setting');
+var multer = require('multer');
 
 var User = require('../models/user');
+var Post = require('../models/post');
 
 /* GET home page. */
 exports.index = function (req, res) {
@@ -20,7 +22,36 @@ exports.user = function (req, res) {
 }
 
 exports.post = function (req, res) {
-    res.render('post', {title: 'my blog'});
+    res.render('post', {title: '发表文章'});
+}
+
+exports.doPost = function (req, res) {
+    var currentUser = req.session.user;
+    var post = new Post(currentUser.name, req.body.title, req.body.post);
+    post.save(function (err) {
+        if (err) {
+            req.flash('error', err);
+            return res.redirect('/');
+        }
+        req.flash('success', '发表成功');
+        return res.redirect('/article');
+    });
+}
+
+exports.article = function (req, res) {
+    Post.find(null, function (err, posts) {
+        if (err) {
+            posts = [];
+        }
+        res.render('article', {
+            title: '文章列表',
+            user: req.session.user,
+            posts: posts,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString()
+            
+        });
+    });
 }
 
 exports.reg = function (req, res) {
@@ -119,5 +150,10 @@ exports.checkNotLogin = function (req, res, next) {
     next();
 }
 
+exports.upload = function (req, res) {
+    res.render('upload', {
+        title: '上传文件'
+    });
+}
 
 

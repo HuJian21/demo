@@ -24,10 +24,8 @@ a:hover, a:active {
   clear: both; }
 
 .welcome-message {
-  font-size: 16px; }
-
-.sys-message {
-  margin: 20px 40px; }
+  font-size: 16px;
+  margin-right: 20px; }
 
 .welcome {
   margin: 20px 40px;

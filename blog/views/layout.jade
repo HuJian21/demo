@@ -40,14 +40,24 @@ html(lang='en')
             |                 
             li
               a(href='/reg') 注册
+            |                 
+            li
+              a(href='/article') 文章
+            |                 
+            li
+              a(href='/upload') 上传
           |             
           form.navbar-form.navbar-right(role='search')
             .form-group
               input.form-control(type='text', placeholder='Search')
             |                 
             button.btn.btn-default(type='submit') 搜索
+    - if (success)
+      p.bg-success.sys-message #{success}
+    - else if (error)
+      p.bg-danger.sys-message #{error}
     block content
     section.clear
-    footer.footer 访问：
+    footer.footer.col-md-12 访问：
       a(href="http://hujian21.github.io") 我的个人博客
       span copyright @ Jian 2016
