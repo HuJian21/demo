@@ -63,9 +63,10 @@ var upload = multer({
 
 // 设置路由规则
 app.get('/', routes.index);
-// app.get('/', )
-app.get('/u/:user', routes.user);
-
+// 用户的所有文章
+app.get('/userarticle/:name', routes.userArticle);
+// 单篇文章的页面
+app.get('/onearticle/:name/:day/:title', routes.oneArticle);
 // 注册页面
 app.get('/reg', routes.checkNotLogin);
 app.get('/reg', routes.reg);

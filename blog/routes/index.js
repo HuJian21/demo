@@ -16,12 +16,51 @@ exports.index = function (req, res) {
     });
 }
 
-exports.user = function (req, res) {
-    res.render('user', {title: 'my blog'});
+exports.userArticle = function (req, res) {
+    User.find(req.params.name, function (err, user) {
+        if (!user) {
+            req.flash('error', '用户不存在');
+            return res.redirect('/');
+        }
+        Post.findAll(user.name, function (err, posts) {
+            if (err) {
+                req.flash('error', err);
+                return res.redirect('/');
+            }
+            res.render('userarticle', {
+                title: user.name + '的文章',
+                posts: posts,
+                user: req.session.user,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+        });
+    });
+}
+
+exports.oneArticle = function (req, res) {
+    Post.findOne(req.params.name, req.params.day, req.params.title, function (err, post) {
+        if (err) {
+            req.flash('error', err);
+            return res.redirect('/');
+        }
+        res.render('onearticle', {
+            title: req.params.title,
+            post: post,
+            user: req.session.user,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString()
+        });
+    });
 }
 
 exports.post = function (req, res) {
-    res.render('post', {title: '发表文章'});
+    res.render('post', {
+        title: '发表文章',
+        user: req.session.user,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+    });
 }
 
 exports.doPost = function (req, res) {
@@ -38,7 +77,7 @@ exports.doPost = function (req, res) {
 }
 
 exports.article = function (req, res) {
-    Post.find(null, function (err, posts) {
+    Post.findAll(null, function (err, posts) {
         if (err) {
             posts = [];
         }

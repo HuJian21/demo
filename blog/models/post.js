@@ -7,7 +7,7 @@ function Post(username, title, post) {
     this.post = post;
 }
 
-Post.find = function (username, callback) {
+Post.findAll = function (name, callback) {
     mongoDb.open(function (err, db) {
         if (err) {
             mongoDb.close();
@@ -19,8 +19,8 @@ Post.find = function (username, callback) {
                 return callback(err);
             }
             var query = {};
-            if (username) {
-                query.username = username;
+            if (name) {
+                query.name = name;
             }
             collection.find(query).sort({
                 time: -1
@@ -33,7 +33,32 @@ Post.find = function (username, callback) {
                     doc.post = markdown.toHTML(doc.post);
                 });
                 callback(null, docs);
-            })
+            });
+        });
+    });
+}
+
+Post.findOne = function (name, day, title, callback) {
+    mongoDb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        db.collection('posts', function (err, collection) {
+            if (err) {
+                return callback(err);
+            }
+            collection.findOne({
+                "name": name,
+                "time.day": day,
+                "title": title
+            }, function (err, doc) {
+                mongoDb.close();
+                if (err) {
+                    return err;
+                }
+                doc.post = markdown.toHTML(doc.post);
+                callback(null, doc);
+            });
         })
     })
 }

@@ -1,0 +1,14 @@
+extends layout
+block content
+    link(rel='stylesheet', href='/stylesheets/article.css')
+    .content.col-md-10.col-md-offset-1
+      - if (post.title)
+        h3.head-text #{post.title}
+        .articles.clear
+            .article.bg-info
+                p.author-time
+                    span.article-author 作者：
+                      a #{post.name}
+                    span.article-time 日期: 
+                      a #{post.time.minute}
+                != post.post
