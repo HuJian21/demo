@@ -101,5 +101,83 @@ Post.prototype.save = function (callback) {
         })
     })
 }
+Post.edit = function (name, day, title, callback) {
+    mongoDb.open(function (err, db) {
+        if (err) {
+            callback(err);
+        }
+        db.collection('posts', function (err, collection) {
+            if (err) {
+                mongoDb.close();
+                callback(err);
+            }
+            collection.findOne({
+                "title": title,
+                "time.day": day,
+                "name": name
+            }, function (err, doc) {
+                mongoDb.close();
+                if (err) {
+                    callback(err);
+                }
+                callback(null, doc);  // markdown格式
+            });
+        });
+    });
+}
+
+Post.update = function (name, day, title, post, callback) {
+    mongoDb.open(function (err, db) {
+        db.collection('posts', function (err, collection) {
+            if (err) {
+                mongoDb.close();
+                return callback(err);
+            }
+            collection.update({
+                "name": name,
+                "time.day": day,
+                "title": title
+            },{
+                $set: {"post": post}
+            }, function (err) {
+                mongoDb.close();
+                if (err) {
+                    return callback(err);
+                }
+                callback(null);
+            });
+        });
+    });
+}
+
+Post.remove = function (name, day, title, callback) {
+    mongoDb.open(function (err, db) {
+        if (err) {
+            mongoDb.close();
+            return callback(err);
+        }
+        db.collection("posts", function (err, collection) {
+            if (err) {
+                mongoDb.close();
+                return callback(err);
+            }
+            collection.remove({
+                "name": name,
+                "time.day": day,
+                "title": title
+            },{
+                w:1
+            }, function (err) {
+                mongoDb.close();                
+                if (err) {
+                    req.flash('error', err);
+                    return callback(err);
+                }
+                callback(null);
+                // return res.redirect('/');
+            });
+        });
+    });
+}
 
 module.exports = Post;

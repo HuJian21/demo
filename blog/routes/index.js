@@ -202,4 +202,46 @@ exports.doUpload = function (req, res) {
     return res.redirect('/upload');
 }
 
+exports.edit = function (req, res) {
+    var currentUser = req.session.user;
+    Post.edit(currentUser.name, req.params.day, req.params.title, function (err, post) {
+        if (err) {
+            req.flash('error',err);
+            return res.redirect('/');
+        }
+        res.render('edit', {
+            title: '编辑',
+            post: post,
+            user: req.session.user,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString()
+        });
+    })
+}
+
+exports.updateArticle = function (req, res) {
+    var currentUser = req.session.user;
+    Post.update(currentUser.name, req.params.day, req.params.title, req.body.post, function (err) {
+        var url = encodeURI('/edit/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+        if (err) {
+            req.flash('err', err);
+            return res.redirect(url);
+        }
+        req.flash('success', '修改成功');
+        return res.redirect(url);
+    });
+}
+
+exports.removeArticle = function (req, res) {
+    var currentUser = req.session.user;
+    Post.remove(currentUser.name, req.params.day, req.params.title, function (err) {
+        if (err) {
+            req.flash('error', err);
+            return res.redirect('back');
+        }
+        req.flash('success', '删除成功');
+        return res.redirect('/article');
+    })
+}
+
 

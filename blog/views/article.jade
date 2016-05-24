@@ -4,6 +4,9 @@ block content
   .content.col-md-10.col-md-offset-1
     h3.head-text 文章大厅
     form(method="post")
+      label(for="article-title") 文章标题:
+      input.form-control(type="text", name="title")
+      label(for="article-content") 文章内容:
       textarea(rows="5", name="post").form-control
       input.pull-right(type="submit", value="发布")
     - for post in posts

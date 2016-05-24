@@ -100,6 +100,15 @@ app.get('/upload', routes.upload);
 // 执行文件上传
 app.post('/upload', routes.checkLogin);
 app.post('/upload', upload.array('field1', 5), routes.doUpload);
+// 文章编辑
+app.get('/edit/:name/:day/:title', routes.checkLogin);
+app.get('/edit/:name/:day/:title', routes.edit);
+// 保存编辑的文章
+app.post('/edit/:name/:day/:title', routes.checkLogin);
+app.post('/edit/:name/:day/:title', routes.updateArticle);
+// 删除文章内
+app.get('/remove/:name/:day/:title', routes.checkLogin);
+app.get('/remove/:name/:day/:title', routes.removeArticle);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

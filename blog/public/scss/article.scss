@@ -11,13 +11,16 @@
             margin-bottom: 20px;
         }
         .author-time {
-            // color: #808080;
-        }
-        .article-author {
-            margin-right: 20px;
-        }
-        .author-time {
             margin-bottom: 20px;
+            .article-author {
+                margin-right: 20px;
+            }
+        }
+        .content-update {
+            margin-bottom: 20px;
+            a {
+                margin-left: 20px;
+            }
         }
     }
 }
