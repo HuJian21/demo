@@ -8,12 +8,17 @@ block content
             .article.bg-info
                 p.author-time
                     span.article-author 作者：
-                      a #{post.name}
+                      a(href="/userarticle/#{post.name}") #{post.name}
                     span.article-time 日期: 
                       a #{post.time.minute}
                 != post.post
                   - if (user && (user.name == post.name))
-                    span.pull-right
-                      a(href="/edit/#{post.name}/#{post.time.day}/#{post.title}") 编辑
-                    span.pull-right 
-                      a(href="/remove/#{post.name}/#{post.time.day}/#{post.title}") 删除
+                    .edit.clearfix
+                      span.pull-right
+                        button.btn.btn-default
+                          a(href="/edit/#{post.name}/#{post.time.day}/#{post.title}") 编辑
+                      span.pull-right
+                        button.btn.btn-default
+                          a(href="/remove/#{post.name}/#{post.time.day}/#{post.title}") 删除
+                      
+         include ./comment.jade

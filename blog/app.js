@@ -106,9 +106,11 @@ app.get('/edit/:name/:day/:title', routes.edit);
 // 保存编辑的文章
 app.post('/edit/:name/:day/:title', routes.checkLogin);
 app.post('/edit/:name/:day/:title', routes.updateArticle);
-// 删除文章内
+// 删除文章
 app.get('/remove/:name/:day/:title', routes.checkLogin);
 app.get('/remove/:name/:day/:title', routes.removeArticle);
+// 发表评论
+app.post('/onearticle/:name/:day/:title', routes.comment);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -14,7 +14,7 @@ block content
               a(href="/onearticle/#{post.name}/#{post.time.day}/#{post.title}") 无标题
           p.author-time
             span.article-author 作者：
-              a #{post.name}
+              a(href="/userarticle/#{post.name}") #{post.name}
             span.article-time 日期: 
               a #{post.time.minute}
           .post!= post.post
