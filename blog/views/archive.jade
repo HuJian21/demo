@@ -1,0 +1,14 @@
+extends layout
+block content
+  link(rel="stylesheet", href="/stylesheets/archive.css")
+  ul.archive
+    - var lastYear = 0;
+    - for post in posts
+      - if (lastYear != post.time.year)
+        li 
+          h3 #{post.time.year}年
+      - lastYear = post.time.year
+        li
+          time #{post.time.day}
+        li
+          a(href="/onearticle/#{post.name}/#{post.time.day}/#{post.title}") #{post.title}    

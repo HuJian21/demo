@@ -1,0 +1,23 @@
+@import '_reset.scss';
+body {
+    background: url('../images/1.jpg') no-repeat;
+    background-size: cover;
+}
+.archive {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 28px;
+    background-color: RGB(217,237,247);
+    border-radius: 10px;
+    
+    time {
+        color: #999999;
+        float:left;
+        font-size:14px;
+        margin-right: 20px;
+    }
+    h3{
+        margin:0.5em 0;
+    }
+}

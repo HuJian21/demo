@@ -111,6 +111,8 @@ app.get('/remove/:name/:day/:title', routes.checkLogin);
 app.get('/remove/:name/:day/:title', routes.removeArticle);
 // 发表评论
 app.post('/onearticle/:name/:day/:title', routes.comment);
+// 存档页
+app.get('/archive', routes.getArchive);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

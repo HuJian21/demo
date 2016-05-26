@@ -204,4 +204,31 @@ Post.remove = function (name, day, title, callback) {
     });
 }
 
+Post.getArchive = function (callback) {
+    mongoDb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        db.collection('posts', function (err, collection) {
+            if (err) {
+                mongoDb.close();
+                return callback(err);
+            }
+            collection.find({}, {
+                "name": 1,
+                "time": 1,
+                "title": 1
+            }).sort({
+                time: -1
+            }).toArray(function (err, docs) {
+                mongoDb.close();
+                if (err) {
+                    return callback(err);
+                }
+                callback(null, docs);
+            });
+        });
+    });
+}
+
 module.exports = Post;
