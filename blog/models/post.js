@@ -7,7 +7,7 @@ function Post(username, title, post) {
     this.post = post;
 }
 
-Post.findAll = function (name, callback) {
+Post.findTen = function (name, page, callback) {
     mongoDb.open(function (err, db) {
         if (err) {
             mongoDb.close();
@@ -22,18 +22,35 @@ Post.findAll = function (name, callback) {
             if (name) {
                 query.name = name;
             }
-            collection.find(query).sort({
-                time: -1
-            }).toArray(function (err, docs) {
-                mongoDb.close();
-                if (err) {
-                    callback(err);
-                }
-                docs.forEach(function (doc) {
-                    doc.post = markdown.toHTML(doc.post);
+            collection.count(query, function (err, total) {
+                collection.find(query, {
+                    skip: (page - 1) * 10,
+                    limit: 10
+                }).sort({
+                    time: -1
+                }).toArray(function (err, docs) {
+                    mongoDb.close();
+                    if (err) {
+                        callback(err);
+                    }
+                    docs.forEach(function (doc) {
+                        doc.post = markdown.toHTML(doc.post);
+                    });
+                    callback(null, docs, total);
                 });
-                callback(null, docs);
             });
+            // collection.find(query).sort({
+            //     time: -1
+            // }).toArray(function (err, docs) {
+            //     mongoDb.close();
+            //     if (err) {
+            //         callback(err);
+            //     }
+            //     docs.forEach(function (doc) {
+            //         doc.post = markdown.toHTML(doc.post);
+            //     });
+            //     callback(null, docs);
+            // });
         });
     });
 }

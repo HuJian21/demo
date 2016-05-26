@@ -23,15 +23,18 @@ exports.userArticle = function (req, res) {
             req.flash('error', '用户不存在');
             return res.redirect('/');
         }
-        Post.findAll(user.name, function (err, posts) {
+        var page = parseInt(req.query.p, 10) || 1;
+        Post.findTen(user.name, page, function (err, posts, total) {
             if (err) {
-                req.flash('error', err);
-                return res.redirect('/');
+                posts = [];
             }
             res.render('userarticle', {
-                title: user.name + '的文章',
-                posts: posts,
+                title: '文章列表',
                 user: req.session.user,
+                page: page,
+                isFirstPage: (page - 1) == 0,
+                isLastPage: ((page - 1) * 10 + posts.length) == total,
+                posts: posts,
                 success: req.flash('success').toString(),
                 error: req.flash('error').toString()
             });
@@ -77,14 +80,19 @@ exports.doPost = function (req, res) {
     });
 }
 
+// 文章列表页
 exports.article = function (req, res) {
-    Post.findAll(null, function (err, posts) {
+    var page = parseInt(req.query.p, 10) || 1;
+    Post.findTen(null, page, function (err, posts, total) {
         if (err) {
             posts = [];
         }
         res.render('article', {
             title: '文章列表',
             user: req.session.user,
+            page: page,
+            isFirstPage: (page - 1) == 0,
+            isLastPage: ((page - 1) * 10 + posts.length) == total,
             posts: posts,
             success: req.flash('success').toString(),
             error: req.flash('error').toString()

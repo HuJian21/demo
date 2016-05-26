@@ -17,4 +17,6 @@ block content
               a(href="/userarticle/#{post.name}") #{post.name}
             span.article-time 日期: 
               a #{post.time.minute}
-          .post!= post.post
+          .post.article-content!= post.post
+            a.article-readall(href="/onearticle/#{post.name}/#{post.time.day}/#{post.title}") 阅读全文
+    include ./paging.jade

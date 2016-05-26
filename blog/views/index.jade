@@ -8,11 +8,11 @@ block content
     - if (user)
       p.buttons
         span.welcome-message 欢迎您，#{user.name} ！
-        a.btn.btn-default(href="/post" role="button") 发表
+        a.btn.btn-primary(href="/post" role="button") 发表
         a.btn.btn-default(href="/logout" role="button") 登出
     - else
       p.buttons
-        a.btn.btn-default(href="/login" role="button") 登录
+        a.btn.btn-primary(href="/login" role="button") 登录
         a.btn.btn-default(href="/reg" role="button") 立即注册
   .says
     .say 

@@ -36,3 +36,13 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.article-content {
+    max-height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+.article-readall {
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+}
