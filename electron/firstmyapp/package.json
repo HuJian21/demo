@@ -1,0 +1,13 @@
+{
+  "name": "myfirstapp",
+  "version": "0.1.0",
+  "main": "app/main.js",
+  "scripts": {
+    "start": "electron .",
+    "packager": "electron-packager ./app mclans --all --out ./OutApp --version 0.37.3 --overwrite --icon=./app/img/icon/icon.ico"
+  },
+  "devDependencies": {
+    "electron-packager": "^7.0.2",
+    "gulp": "^3.9.1"
+  }
+}
