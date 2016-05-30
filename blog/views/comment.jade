@@ -1,12 +1,14 @@
 br
 h4 评论区
-- post.comments.forEach(function (comment, index) {
-    .comments
-      p #{index + 1}楼
-      a(href="#{comment.website}") #{comment.name}
-      span  回复于#{comment.time}
-      p!=  comment.content
-- })
+.commentsarea
+  p.commentslength 共#{post.comments.length}条评论
+  - post.comments.forEach(function (comment, index) {
+      .comments
+        p #{index + 1}楼
+        a(href="#{comment.website}") #{comment.name}
+        span  回复于#{comment.time}
+        p!=  comment.content
+  - })
 h4 发表评论
 form(method="post" id="comment" action="/oneArticle/#{post.name}/#{post.time.day}/#{post.title}")
   - if (user)

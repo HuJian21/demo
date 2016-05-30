@@ -62,4 +62,44 @@ a:hover, a:active {
   bottom: 0px;
   right: 0; }
 
+.article-tags {
+  margin-left: 20px; }
+
+.alllabel {
+  text-align: center; }
+
+.tag {
+  margin-right: 10px;
+  border-radius: 5px;
+  background-color: #168EF0;
+  padding: 8px;
+  color: white; }
+  .tag:hover {
+    background-color: #F60;
+    color: white; }
+
+.archive {
+  text-align: center;
+  background-color: #4693EC; }
+  .archive .tagyear h3 {
+    font-weight: bold; }
+  .archive .tagtimeday {
+    margin-top: 10px; }
+    .archive .tagtimeday time {
+      color: white; }
+    .archive .tagtimeday a:link, .archive .tagtimeday a:visited {
+      margin-left: 20px;
+      color: white; }
+    .archive .tagtimeday a:hover, .archive .tagtimeday a:active {
+      color: mediumvioletred;
+      text-decoration: underline; }
+
+.commentsarea {
+  background-color: #D9EDF7;
+  border-radius: 5px;
+  padding: 20px; }
+
+.commentslength {
+  margin-bottom: 20px; }
+
 /*# sourceMappingURL=article.css.map */

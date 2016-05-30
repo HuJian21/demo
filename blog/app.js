@@ -113,7 +113,10 @@ app.get('/remove/:name/:day/:title', routes.removeArticle);
 app.post('/onearticle/:name/:day/:title', routes.comment);
 // 存档页
 app.get('/archive', routes.getArchive);
-
+// 标签
+app.get('/tags', routes.tags);
+// 全部标签文章
+app.get('/tags/:tag', routes.tag);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

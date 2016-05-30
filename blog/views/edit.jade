@@ -11,6 +11,11 @@ block content
       label(for="article-title") 文章标题:
       input.form-control.article-title(type="text", name="title" value="#{post.title}")
     .form-group
+      label(for="article-title") 标签:
+      input.col-md-4(type="text", name="tag1" value="#{post.tags[0]}")
+      input.col-md-4(type="text", name="tag2" value="#{post.tags[1]}")
+      input.col-md-4(type="text", name="tag3" value="#{post.tags[2]}")
+    .form-group
       label(for="article-content") 文章内容:
       <textarea class="form-control article-content" rows="19" name="post">#{post.post}</textarea>
     .form-group.pull-right

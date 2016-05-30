@@ -17,6 +17,11 @@ block content
               a(href="/userarticle/#{post.name}") #{post.name}
             span.article-time 日期: 
               a #{post.time.minute}
+            span.article-tags 标签:
+              - var tags = post.tags
+              - for tag in tags
+                - if (tag)
+                  a.tag(href="/tags/#{tag}") #{tag}
           .post.article-content!= post.post
             a.article-readall(href="/onearticle/#{post.name}/#{post.time.day}/#{post.title}") 阅读全文
     include ./paging.jade
