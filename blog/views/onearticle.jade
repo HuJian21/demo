@@ -16,7 +16,9 @@ block content
                       - for tag in tags
                         - if (tag)
                           a.tag(href="/tags/#{tag}") #{tag}
-                != post.post
+                    span 阅读:#{post.pv}
+                .article-text
+                  != post.post
                   - if (user && (user.name == post.name))
                     .edit.clearfix
                       span.pull-right

@@ -48,6 +48,7 @@ exports.oneArticle = function (req, res) {
             req.flash('error', err);
             return res.redirect('/');
         }
+        // req.flash('success', '查找成功');
         res.render('onearticle', {
             title: req.params.title,
             post: post,

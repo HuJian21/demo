@@ -102,4 +102,7 @@ a:hover, a:active {
 .commentslength {
   margin-bottom: 20px; }
 
+.article-text {
+  line-height: 1.8; }
+
 /*# sourceMappingURL=article.css.map */

@@ -10,10 +10,6 @@ block content
       textarea(rows="5", name="post").form-control
       input.pull-right(type="submit", value="发布")
     - for post in posts
-      //- span.article-tags 标签
-      //-   - for tag in post.tags
-      //-     - if (tag)
-      //-     a.tag(href="/tags/#{tag}") #{tag}
       .articles.clear
         .article.bg-info
           - if (post.title)
@@ -29,6 +25,7 @@ block content
               - for tag in tags
                 - if (tag)
                   a.tag(href="/tags/#{tag}") #{tag}
+            span 读过: #{post.pv}
           article.article-content
             != post.post
               a.article-readall(href="/onearticle/#{post.name}/#{post.time.day}/#{post.title}") 阅读全文

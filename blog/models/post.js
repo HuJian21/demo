@@ -70,18 +70,27 @@ Post.findOne = function (name, day, title, callback) {
                 "time.day": day,
                 "title": title
             }, function (err, doc) {
-                mongoDb.close();
                 if (err) {
-                    return err;
+                    return callback(err);
                 }
                 if (doc) {
+                    collection.update({
+                        "_id": doc._id
+                    }, {
+                        "$inc": {"pv": 1}
+                    }, function (err) {
+                        if (err) {
+                            mongoDb.close();                          
+                            return callback(err.toString());
+                        }
+                    })
+                    // 解析markdown为html
                     doc.post = markdown.toHTML(doc.post);
                     doc.comments.forEach(function (comment) {
                         comment.content = markdown.toHTML(comment.content);
                     });
-                }
-                
-                callback(null, doc);
+                    callback(null, doc);
+                }               
             });
         })
     })
@@ -95,8 +104,8 @@ Post.prototype.save = function (callback) {
         date: date,
         year: date.getFullYear(),
         month: date.getFullYear() + '-' + (date.getMonth() + 1 ),
-        day: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay(),
-        minute: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay() + ' ' + date.getHours() + ':'
+        day: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
+        minute: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':'
                 + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':' + date.getSeconds()
     }
     // 要存入数据库的文档
@@ -106,6 +115,7 @@ Post.prototype.save = function (callback) {
         title: this.title,
         post: this.post,
         tags: this.tags,
+        pv: 0,
         comments: []
     }
     mongoDb.open(function (err, db) {
