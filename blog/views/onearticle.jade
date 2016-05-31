@@ -16,7 +16,7 @@ block content
                       - for tag in tags
                         - if (tag)
                           a.tag(href="/tags/#{tag}") #{tag}
-                    span 阅读:#{post.pv}
+                    span 阅读:#{post.pv + 1}
                 .article-text
                   != post.post
                   - if (user && (user.name == post.name))
