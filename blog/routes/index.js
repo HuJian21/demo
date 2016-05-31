@@ -325,4 +325,20 @@ exports.tag = function (req, res) {
   });
 }
 
+exports.search = function (req, res) {
+    Post.search(req.query.keywords, function (err, posts) {
+        if (err) {
+            req.flash('error', err);
+            return res.redirect('/');
+        }
+        res.render('search', {
+            title: "搜索结果：" + req.query.keywords,
+            posts: posts,
+            user: req.session.user,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString()
+        });
+    });
+}
+
 

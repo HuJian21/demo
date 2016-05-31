@@ -117,6 +117,12 @@ app.get('/archive', routes.getArchive);
 app.get('/tags', routes.tags);
 // 全部标签文章
 app.get('/tags/:tag', routes.tag);
+// Seacrh
+app.get('/search', routes.search);
+
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

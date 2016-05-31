@@ -293,5 +293,35 @@ Post.getTag = function(tag, callback) {
       });
     });
   });
-};
+}
+
+Post.search = function (keywords, callback) {
+    mongoDb.open(function (err, db) {
+        if (err) {
+            return callback(err.toString());
+        }
+        db.collection('posts', function (err, collection) {
+            if (err) {
+                return callback(err.toString());
+            }
+            var pattern = new RegExp(keywords, 'i');
+            collection.find({
+                "title": {$regex: pattern}
+            }, {
+                "name": 1,
+                "time": 1,
+                "title": 1
+            }).sort({
+                time: -1
+            }).toArray(function (err, docs) {
+                mongoDb.close();
+                if (err) {
+                    return callback(err.toString());
+                }
+                callback(null, docs);
+            })
+        })
+    })
+} 
+
 module.exports = Post;

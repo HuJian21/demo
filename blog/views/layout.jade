@@ -36,10 +36,11 @@ html(lang='en')
               a(href='/upload') 上传
             li
               a(href='/archive') 存档                
-          form.navbar-form.navbar-right(role='search')
+          form.navbar-form.navbar-right(role='search' method="GET" action="/search")
             .form-group
-              input.form-control(type='text', placeholder='Search')              
+              input.form-control(type='text', placeholder='Search' name="keywords")              
             button.btn.btn-default(type='submit') 搜索
+              //- a(href="/search") 搜索
           - if (user)
             ul.nav.navbar-nav.navbar-right
               li.dropdown
