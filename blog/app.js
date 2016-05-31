@@ -58,9 +58,6 @@ var upload = multer({
     storage: storage
 });
 
-// app.use('/', routes);
-// app.use('/users', users);
-
 // 设置路由规则
 app.get('/', routes.index);
 // 用户的所有文章
@@ -119,6 +116,8 @@ app.get('/tags', routes.tags);
 app.get('/tags/:tag', routes.tag);
 // Seacrh
 app.get('/search', routes.search);
+// 404页面
+app.use(routes.notfound);
 
 
 
