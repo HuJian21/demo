@@ -1,4 +1,4 @@
-### 这是一个学习用的node博客，大体是跟着N-blog写的（模板引擎换用了jade）。
+### 这是一个学习用的node博客，大体跟着N-blog写的。
 Node+Express+Jade+MongoDB
 #### 目前已经完成的功能有：
 * 注册/登录
